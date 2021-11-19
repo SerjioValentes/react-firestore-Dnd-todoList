@@ -68,3 +68,12 @@ justify-content: space-between;
 .wrapper-draggable{
     background-color: #9E9E9E;
 }
+.box-for-task{
+    margin: 5px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #4b4b4b;
+    border-radius: 2%;
+    display: flex;
+    justify-content: space-between;
+}
