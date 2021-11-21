@@ -1,3 +1,4 @@
+//commit FF
 import React, {useState, useEffect} from "react";
 import {db} from "../components/firebase";
 import {
@@ -13,6 +14,8 @@ import "../styles/app.css"
 function DragNDrop() {
     const [taskList, setTaskList] = useState([])
     const [inputChanged, setInputChanged] = useState("")
+
+    //Чтобы useEffect рендерила страницу только по значению true
     const [isFalse, setIsFalse] = useState(false);
 
     var tasksTodo = {
@@ -124,8 +127,8 @@ function DragNDrop() {
         console.log("useEffectOuter")
         setIsFalse(false)
     }, [tasksTodo]);
-//END -------------Запись в локальный стэйт из Firestore-------------
 
+//END -------------Запись в локальный стэйт из Firestore-------------
 
     //  Не работает по нажатию Ентер
 
@@ -163,21 +166,21 @@ function DragNDrop() {
                          onDrop={(e) => {
                              onDrop(e, "wip")
                          }}>
-                        <span className="task-header">Что нужно сделать</span>
+                        <span className="task-header">Ideas</span>
                         {tasksTodo.wip}
                     </div>
 
                     <div className="droppable"
                          onDragOver={(e) => onDragOver(e, "complete")}
                          onDrop={(e) => onDrop(e, "complete")}>
-                        <span className="task-header">В разработке</span>
+                        <span className="task-header">In developing</span>
                         {tasksTodo.complete}
                     </div>
 
                     <div className="droppable03"
                          onDragOver={(e) => onDragOver(e, "WhatTodo")}
                          onDrop={(e) => onDrop(e, "WhatTodo")}>
-                        <span className="task-header">Сделано</span>
+                        <span className="task-header">Finished</span>
                         {tasksTodo.WhatTodo}
                     </div>
                 </div>

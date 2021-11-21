@@ -20,10 +20,16 @@
 // db.collection("collection_name").document(id).set(object);
 
 
-function StopWatch() {
-    let foo = "Nothing";
-    return foo;
-}
-let foooFn = StopWatch();
+function dateStr(a, b) {
+    let result = new Date(a) - new Date(b)
 
-console.log(foooFn)
+
+
+    console.log(result)
+}
+
+
+let a = "Sun Nov 21 2021 14:05:43 GMT+0300 (Moscow Standard Time)0"
+let b = "Sun Nov 17 2021 18:05:43 GMT+0300 (Moscow Standard Time)0"
+
+dateStr(a, b)
