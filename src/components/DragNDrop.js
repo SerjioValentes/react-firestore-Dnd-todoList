@@ -1,4 +1,3 @@
-//commit FF
 import React, {useState, useEffect} from "react";
 import {db} from "../components/firebase";
 import {
@@ -9,14 +8,14 @@ import {
     deleteDoc,
     doc,
 } from "firebase/firestore";
-import "../styles/app.css"
+import "../styles/app.css";
 
 function DragNDrop() {
-    const [taskList, setTaskList] = useState([])
-    const [inputChanged, setInputChanged] = useState("")
+    const [taskList, setTaskList] = useState([]);
+    const [inputChanged, setInputChanged] = useState("");
 
-    //Чтобы useEffect рендерила страницу только по значению true
-    const [isFalse, setIsFalse] = useState(false);
+//---------Чтобы useEffect рендерила страницу только по значению true
+    const [isFalse, setIsFalse] = useState(true);
 
     var tasksTodo = {
         wip: [],
@@ -28,69 +27,48 @@ function DragNDrop() {
 
     const onDragStart = (ev, name, id) => {
         ev.dataTransfer.setData("id", id);
-        console.log("onDragStart")
     }
 
     const onDragOver = async (ev) => {
         ev.preventDefault();
-        console.log("onDragOver")
     }
-
 
     const onDrop = async (ev, cat) => {
         let id = ev.dataTransfer.getData("id");
 
         taskList.map((task) => {
             if (task.id === id) {
-                task.category = cat
+                task.category = cat;
             }
             return task;
         });
-        // const newListId = taskList.filter(item => item.id === id)
-        // setTaskList({
-        //     category: cat
-        // })
-        // console.log(newListId)
-
 
         setTaskList([...taskList]);
-        console.log("onDrop")
-        //Меняет в БД значение id перемещаемого элемента
+
+//------------Меняет в БД категорию по которой распреляются таски в колоннах - через  id перемещаемого элемента
         const listDoc = doc(db, "todolist", id);
         await updateDoc(listDoc, {
-            category: cat
+            category: cat,
         });
 
-    }
+    };
 
-
-    //Добавляет новую задачу в список через State и fFirestore
+//--------------------Добавляет новую задачу в список через State и fFirestore--------------------
     const handlerAdd = async () => {
-        // let tempTaskList = taskList.concat({
-        //     name: inputChanged,
-        //     category: "wip",
-        //     id: new Date(),
-        // })
-        //
-        // setTaskList([...tempTaskList]) //Записывает новые значения из инпута в стайт
-        // console.log(taskList)
-
         //  Запись нового task из инпута в лист firestore
-
         await addDoc(usersCollectionRef, {
             name: inputChanged,
             category: "wip",
             id: new Date(),
         })
-        setIsFalse(true)
+        setIsFalse(true);
     }
-
+//END--------------------Добавляет новую задачу в список через State и fFirestore--------------------
 
     const deleteTask = async (id) => {
         const userDoc = doc(db, "todolist", id);
         await deleteDoc(userDoc);
-        setIsFalse(true)
-        console.log(taskList)
+        setIsFalse(true);
     }
 
     taskList.map((t) => {
@@ -112,45 +90,37 @@ function DragNDrop() {
         );
     });
 
-
 // -------------Запись в локальный стэйт из Firestore-------------
     const getData = async () => {
-        const data = await getDocs(usersCollectionRef)
+        const data = await getDocs(usersCollectionRef);
         setTaskList(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     };
 
     useEffect(() => {
-        if (isFalse) {
-            console.log("useEffectInner");
-            getData();
-        }
-        console.log("useEffectOuter")
-        setIsFalse(false)
+        if (isFalse) getData();
+        setIsFalse(false);
     }, [tasksTodo]);
-
 //END -------------Запись в локальный стэйт из Firestore-------------
 
-    //  Не работает по нажатию Ентер
-
-    // useEffect(() => {
-    //     const listener = event => {
-    //         if (event.code === "Enter" || event.code === "NumpadEnter") {
-    //             handlerAdd();
-    //         }
-    //     };
-    //     document.addEventListener("keydown", listener);
-    //     return () => {
-    //         document.removeEventListener("keydown", listener);
-    //     };
-    // }, []);
-
+// --------------------------handler по нажатию enter---------------
+    useEffect(() => {
+        const listener = event => {
+            if (event.code === "Enter" || event.code === "NumpadEnter") {
+                handlerAdd();
+            }
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, [tasksTodo]);
+// END-----------------------handler по нажатию enter-------------
 
     return (
-        <div className="wrapper-draggable">
+        <div className="wrapper-draggable-elements">
 
-            <div className="input-class-with-button">
+            <div className="draggable-elements__input-button">
                 <input onChange={(event) => {
-
                     setInputChanged(event.target.value)
                 }}
                        placeholder="Нужно сделать.."
@@ -158,10 +128,13 @@ function DragNDrop() {
                 <button onClick={handlerAdd}>submit</button>
             </div>
 
-            <div className="container-drag">
-                <h2 className="header">TASKS DRAG AND DROP LIST</h2>
-                <div className="container-drag-block">
-                    <div className="wip"
+            <div className="drag-and-drop">
+
+                <h2 className="drag-and-drop__header">TASKS DRAG AND DROP LIST</h2>
+
+                <div className="drag-and-drop-container">
+
+                    <div className="drag-and-drop-container__item-1"
                          onDragOver={(e) => onDragOver(e, "wip")}
                          onDrop={(e) => {
                              onDrop(e, "wip")
@@ -170,19 +143,20 @@ function DragNDrop() {
                         {tasksTodo.wip}
                     </div>
 
-                    <div className="droppable"
+                    <div className="drag-and-drop-container__item-2"
                          onDragOver={(e) => onDragOver(e, "complete")}
                          onDrop={(e) => onDrop(e, "complete")}>
                         <span className="task-header">In developing</span>
                         {tasksTodo.complete}
                     </div>
 
-                    <div className="droppable03"
+                    <div className="drag-and-drop-container__item-3"
                          onDragOver={(e) => onDragOver(e, "WhatTodo")}
                          onDrop={(e) => onDrop(e, "WhatTodo")}>
                         <span className="task-header">Finished</span>
                         {tasksTodo.WhatTodo}
                     </div>
+
                 </div>
             </div>
         </div>

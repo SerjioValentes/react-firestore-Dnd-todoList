@@ -1,55 +1,51 @@
 
-.container-drag {
+.drag-and-drop {
     text-align: center;
 }
 
-.container-drag-block{
-    display: flex;
-justify-content: space-between;
-}
 
-.wip {
-    /*position: absolute;*/
-    width: 100%;
-    height: 100vh;
-    left: 0;
-    top: 10;
-    background-color: #EEEEEE;
-    border-right: 1px dotted;
-}
-
-.header {
+.drag-and-drop__header {
     display: inline-block;
     margin: 0;
     padding: 0;
     background-color: #E0E0E0;
-    width:100%;
+    width: 100%;
 }
 
 .task-header {
     display: inline-block;
     background-color: #505050;
     margin-bottom: 10px;
-    width:100%;
+    width: 100%;
     height: 40px;
     color: #EEEEEE;
 }
 
-.droppable {
-    /*position: absolute;*/
+.drag-and-drop-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.drag-and-drop-container__item-1 {
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    background-color: #EEEEEE;
+    border-right: 1px dotted;
+}
+
+.drag-and-drop-container__item-2 {
     width: 100%;
     height: 100vh;
     right: 0;
-    top: 10;
     background-color: #9E9E9E;
     border-left: 1px dotted;
 }
-.droppable03 {
-    /*position: absolute;*/
+
+.drag-and-drop-container__item-3 {
     width: 100%;
     height: 100vh;
     left: 25%;
-    top: 10;
     background-color: #E0E0E0;
     border-left: 1px dotted;
 }
@@ -61,14 +57,17 @@ justify-content: space-between;
     margin: 5px auto;
     line-height: 5em;
 }
-.input-class-with-button{
+
+.draggable-elements__input-button {
     padding: 25px;
     display: flex;
 }
-.wrapper-draggable{
+
+.wrapper-draggable-elements {
     background-color: #9E9E9E;
 }
-.box-for-task{
+
+.box-for-task {
     margin: 5px;
     padding: 5px;
     background-color: white;
