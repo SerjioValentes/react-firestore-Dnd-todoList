@@ -12,5 +12,4 @@ I'm maked this for training how to use firestore and drag and drop elements in r
     
     Drag and drop element:
     - onDragStart, onDrop, onDragOver
-    - transfer arguments between them
-
+    - transfer arguments between them.
