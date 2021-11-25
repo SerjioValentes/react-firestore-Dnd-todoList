@@ -62,6 +62,7 @@ function DragNDrop() {
             id: new Date(),
         })
         setIsFalse(true);
+        setInputChanged("")
     }
 //END--------------------Добавляет новую задачу в список через State и fFirestore--------------------
 
@@ -120,7 +121,8 @@ function DragNDrop() {
         <div className="wrapper-draggable-elements">
 
             <div className="draggable-elements__input-button">
-                <input onChange={(event) => {
+                <input value={inputChanged}
+                    onChange={(event) => {
                     setInputChanged(event.target.value)
                 }}
                        placeholder="Нужно сделать.."
