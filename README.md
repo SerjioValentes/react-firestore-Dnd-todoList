@@ -1,15 +1,18 @@
 # React drag and drop app
-I'm maked this for training how to use firestore and drag and drop elements in react
+I made this to practice how to use firestore and drag and drop elements in react
 
-## What exactly im used:
+## What exactly I'm using:
     React:
-    - **UseEffect** for update my task list and render on table
-    - **UseState** for add new element
+    - UseEffect to update my task list and render on table
+    - UseState for adding new element
 
     FireBase:
-    - **firestore collections in doc** for save elements in data base
-    - some **methods** of firebase **to connect with firestore** and **adding and updating docs** in the collection firestore
+    - firestore collections
+    - documents for saving in data base
+    - some methods of firebase to connect with firestore and adding and updating docs in the collection firestore
     
     Drag and drop element:
     - onDragStart, onDrop, onDragOver
-    - transfer arguments between them.
+    - transfer arguments between functions.
+
+Need firebase datas* file
